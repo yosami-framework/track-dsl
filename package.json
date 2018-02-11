@@ -1,6 +1,6 @@
 {
   "name": "track-dsl",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "DSL support for track.",
   "main": "lib/index.js",
   "repository": "alfa-jpn/track-dsl.git",

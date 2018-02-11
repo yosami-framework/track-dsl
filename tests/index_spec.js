@@ -2,8 +2,12 @@ const t        = require('track-spec');
 const TrackDSL = require('../lib/index.js');
 
 t.describe('TrackDSL', () => {
+  let mock          = null;
+  let MockClass     = null;
+  let MockBaseClass = null;
+
   t.beforeEach(() => {
-    const mockBase = (class mockBase {
+    MockBaseClass = (class {
       /**
        * Initialize base.
        */
@@ -13,7 +17,7 @@ t.describe('TrackDSL', () => {
           'setter': {func: this._defineSetter, binding: this},
         });
 
-        dsl.evaluate(this.constructor.definer);
+        dsl.evaluate(this.constructor.definer, this.constructor);
       }
 
       /**
@@ -41,15 +45,26 @@ t.describe('TrackDSL', () => {
       }
     });
 
-    mock = new (class extends mockBase {
+    MockClass = (class extends MockBaseClass {
       /**
        * Definitions of model.
        */
       static definer() {
         getter('foo');
         setter('piyo');
+        this.hoge();
       }
-    })();
+
+      /**
+       * Mock method.
+       */
+      static hoge() {
+        // @mock
+      }
+    });
+    MockClass.hoge = t.spy();
+
+    mock = new MockClass();
   });
 
   t.describe('getter', () => {
@@ -63,6 +78,12 @@ t.describe('TrackDSL', () => {
     t.it('Defined', () => {
       mock.piyo = 'PIYO!!!!';
       t.expect(mock._piyo).equals('PIYO!!!!');
+    });
+  });
+
+  t.describe('MockClass.hoge', () => {
+    t.it('Called', () => {
+      t.expect(MockClass.hoge.callCount).equals(1);
     });
   });
 });

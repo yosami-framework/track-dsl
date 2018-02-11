@@ -29,12 +29,12 @@ class Hoge extends Base {
 const TrackDSL = require('track-dsl');
 class Base {
   constructor() {
-    const dsl = new TrackDSL({
+    const dsl = new TrackDSL(this, {
       'getter': {func: this._defineGetter, binding: this},
       'setter': {func: this._defineSetter, binding: this},
     });
 
-    dsl.evaluate(this.constructor.definer, this);
+    dsl.evaluate(this.constructor.definer);
   }
 
   _defineGetter(name) {

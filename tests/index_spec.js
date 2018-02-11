@@ -12,12 +12,12 @@ t.describe('TrackDSL', () => {
        * Initialize base.
        */
       constructor() {
-        const dsl = new TrackDSL({
+        const dsl = new TrackDSL(this.constructor, {
           'getter': {func: this._defineGetter, binding: this},
           'setter': {func: this._defineSetter, binding: this},
         });
 
-        dsl.evaluate(this.constructor.definer, this.constructor);
+        dsl.evaluate(this.constructor.definer);
       }
 
       /**

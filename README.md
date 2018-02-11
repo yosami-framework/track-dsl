@@ -34,7 +34,7 @@ class Base {
       'setter': {func: this._defineSetter, binding: this},
     });
 
-    dsl.evaluate(this.constructor.definer);
+    dsl.evaluate(this.constructor.definer, this);
   }
 
   _defineGetter(name) {

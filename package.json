@@ -13,6 +13,7 @@
   "devDependencies": {
     "eslint": "^4.17.0",
     "eslint-config-google": "^0.9.1",
-    "track-spec": "0.0.2"
+    "mithril": "^1.1.6",
+    "track-spec": "0.0.3"
   }
 }

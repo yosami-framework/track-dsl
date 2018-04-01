@@ -1,9 +1,9 @@
 {
   "name": "track-dsl",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "DSL support for track.",
   "main": "lib/index.js",
-  "repository": "alfa-jpn/track-dsl.git",
+  "repository": "yosami-framework/track-dsl.git",
   "scripts": {
     "linter": "eslint ./",
     "test": "ospec"
@@ -14,6 +14,6 @@
     "eslint": "^4.17.0",
     "eslint-config-google": "^0.9.1",
     "mithril": "^1.1.6",
-    "track-spec": "0.0.3"
+    "track-spec": "0.0.4"
   }
 }

@@ -1,6 +1,8 @@
 # TrackDSL
 DSL support for track.
 
+[![Build Status](https://travis-ci.org/yosami-framework/track-dsl.svg?branch=master)](https://travis-ci.org/yosami-framework/track-dsl)
+
 ## Installation
 
 ### npm

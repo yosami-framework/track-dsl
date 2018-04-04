@@ -65,3 +65,44 @@ const hoge = new Hoge();
 hoge.piyo = 'piyo';
 hoge.foo;
 ```
+
+### Extendable definer
+
+Use `track-dsl/lib/extendable`.
+
+
+```javascript
+const TrackDSL           = require('track-dsl');
+const TrackDSLExtendable = require('track-dsl/lib/extendable');
+
+class Base extend TrackDSLExtendable {
+  constructor() {
+    const dsl = new TrackDSL(this, {
+      'getter': {func: this._defineGetter, binding: this},
+      'setter': {func: this._defineSetter, binding: this},
+    });
+
+    this.definers.forEach((definer) => {
+      dsl.evaluate(definer);
+    });
+  }
+}
+```
+
+And
+
+```javascript
+class A extend Base {
+  static definer() {
+    getter('foo');  // Define instance.foo
+  }
+}
+
+class B extend A {
+  static definer() {
+    getter('bar');  // Define instance.bar
+  }
+}
+```
+
+B will define getter foo and bar.

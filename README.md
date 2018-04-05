@@ -79,6 +79,10 @@ class BaseA extend TrackDSLBase {
       'getter': {func: this._defineGetter, binding: this},
     }
   }
+
+  constructor() {
+    this.evaluateDSL();
+  }
 }
 
 class BaseB extend BaseA {

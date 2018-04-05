@@ -2,10 +2,11 @@ const t            = require('track-spec');
 const TrackDSLBase = require('../lib/base.js');
 
 t.describe('TrackDSLBase', () => {
-  let ClassA = null;
-  let ClassB = null;
-  let ClassC = null;
-  let ClassD = null;
+  let ClassA   = null;
+  let ClassB   = null;
+  let ClassC   = null;
+  let ClassD   = null;
+  let instance = null;
 
   t.beforeEach(() => {
     ClassA = (class extends TrackDSLBase {
@@ -58,15 +59,22 @@ t.describe('TrackDSLBase', () => {
       }
     });
     ClassD = (class extends ClassC {});
+
+    instance = new ClassD();
   });
 
-  t.it('Execute DSL', () => {
-    t.expect((new ClassD()).hoge).equals('HOOOGE!!!');
-    t.expect((new ClassD()).piyo).equals('PIYO!PIYO!');
+  t.describe('#evaluateDSL', () => {
+    const subject = (() => instance.evaluateDSL());
+
+    t.it('Evaluate DSL', () => {
+      subject();
+      t.expect(instance.hoge).equals('HOOOGE!!!');
+      t.expect(instance.piyo).equals('PIYO!PIYO!');
+    });
   });
 
   t.describe('#_collectFunction', () => {
-    const subject = (() => (new ClassD())._collectFunction('definer'));
+    const subject = (() => instance._collectFunction('definer'));
 
     t.it('Return definers', () => {
       t.expect(subject().length).equals(2);

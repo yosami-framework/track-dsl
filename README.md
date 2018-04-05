@@ -66,43 +66,40 @@ hoge.piyo = 'piyo';
 hoge.foo;
 ```
 
-### Extendable definer
+### Base class.
 
-Use `track-dsl/lib/extendable`.
-
+Use `track-dsl/lib/base`.
 
 ```javascript
-const TrackDSL           = require('track-dsl');
-const TrackDSLExtendable = require('track-dsl/lib/extendable');
+const TrackDSLBase = require('track-dsl/lib/extendable');
 
-class Base extend TrackDSLExtendable {
-  constructor() {
-    const dsl = new TrackDSL(this, {
+class BaseA extend TrackDSLBase {
+  static dsl() {
+    return  {
       'getter': {func: this._defineGetter, binding: this},
-      'setter': {func: this._defineSetter, binding: this},
-    });
-
-    this.definers.forEach((definer) => {
-      dsl.evaluate(definer);
-    });
+    }
   }
 }
-```
 
-And
+class BaseB extend BaseA {
+  static dsl() {
+    return  {
+      'setter': {func: this._defineSetter, binding: this},
+    }
+  }
+}
 
-```javascript
-class A extend Base {
+class ClassA extend BaseB {
   static definer() {
     getter('foo');  // Define instance.foo
   }
 }
 
-class B extend A {
+class ClassB extend ClassA {
   static definer() {
-    getter('bar');  // Define instance.bar
+    setter('bar');  // Define instance.bar
   }
 }
 ```
 
-B will define getter foo and bar.
+ClassB will define getter foo and setter bar.

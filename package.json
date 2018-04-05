@@ -1,6 +1,6 @@
 {
   "name": "track-dsl",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "DSL support for track.",
   "main": "lib/index.js",
   "repository": "yosami-framework/track-dsl.git",
